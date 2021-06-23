@@ -18,8 +18,8 @@ public class Main {
 
             KeyType type = keyStroke.getKeyType();
             Character c = keyStroke.getCharacter();
-
-
+            game.getScore().addOnePoint();
+            game.displayScore();
             game.movePlayer(type);
             game.getTerminal().flush();
         }
