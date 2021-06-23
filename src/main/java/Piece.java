@@ -1,3 +1,5 @@
+import com.googlecode.lanterna.TextColor;
+
 public abstract class Piece {
     private int xCoordinate;
     private int yCoordinate;
@@ -19,5 +21,7 @@ public abstract class Piece {
     }
 
     abstract char displayPiece();
+
+    abstract TextColor getTextColor();
 
 }

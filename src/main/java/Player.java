@@ -1,5 +1,8 @@
+import com.googlecode.lanterna.TextColor;
+
 public class Player extends Piece{
     private char playerIcon;
+    private TextColor textColor;
     static int playernumer = 0;
 /*
     public Player(){
@@ -9,7 +12,12 @@ public class Player extends Piece{
     public Player(int xPosition, int yPosition) {
         super.setxCoordinate(xPosition);
         super.setyCoordinate(yPosition);
+        this.textColor = new TextColor.RGB(0, 0, 200);
         this.playerIcon = 'P';
+    }
+
+    public TextColor getTextColor() {
+        return textColor;
     }
 
     char displayPiece(){

@@ -1,3 +1,5 @@
+import com.googlecode.lanterna.TextColor;
+
 public class Boundary extends Piece{
     private char boundaryIcon;
 
@@ -8,5 +10,10 @@ public class Boundary extends Piece{
     @Override
     char displayPiece() {
         return boundaryIcon;
+    }
+
+    @Override
+    TextColor getTextColor() {
+        return null;
     }
 }
