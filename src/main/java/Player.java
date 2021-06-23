@@ -8,7 +8,7 @@ public class Player extends Piece{
 
     public Player(int xPosition, int yPosition) {
         super.setxCoordinate(xPosition);
-        super.setCoordinate(yPosition);
+        super.setyCoordinate(yPosition);
         this.playerIcon = 'P';
     }
 
