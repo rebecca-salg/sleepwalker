@@ -9,9 +9,14 @@ public class Game {
     private Board board;
     private Terminal terminal;
 
+
+
+    private Score score;
+
     public Game() throws Exception {
         this.board = new Board(80, 24);
         this.terminal = initiateTerminal();
+        this.score = new Score();
     }
 
     public Terminal getTerminal() {
@@ -28,7 +33,9 @@ public class Game {
         terminal.setCursorVisible(false);
         return terminal;
     }
-
+    public Score getScore() {
+        return score;
+    }
     public void displayPieces(Piece piece) throws IOException {
         terminal.setCursorPosition(piece.getxCoordinate(), piece.getyCoordinate());
         terminal.putCharacter(piece.displayPiece());
@@ -115,6 +122,23 @@ public class Game {
     public void erasePlayersLastPosition(int xOld, int yOld) throws Exception {
         terminal.setCursorPosition(xOld, yOld);
         terminal.putCharacter(' ');
+    }
+
+    public void displayScore() throws IOException {
+        terminal.setCursorPosition(1,1);
+        String string = "Score: " + score.getScore();
+        for (char c : string.toCharArray()) {
+            terminal.putCharacter(c);
+        }
+
+    }
+
+    public void gameOver() throws IOException {
+        terminal.setCursorPosition(12,30);
+        String gameOver = "GAME OVER :(";
+        for (char c : gameOver.toCharArray()) {
+            terminal.putCharacter(c);
+        }
     }
 }
 
