@@ -47,7 +47,7 @@ public class Game {
     }
 
     public void createLevel() throws Exception {
-        drawShape(2, 12, 0, 0); //playerposition
+        //drawShape(2, 12, 0, 0); //playerposition
         drawShape(3, 1, 5, 0);
         drawShape(3, 7, 1, 5);
         drawShape(45, 8, 9, 0);
@@ -97,6 +97,10 @@ public class Game {
         int xRight = position.getxCoordinate();
         int yRight = position.getyCoordinate();
         erasePlayersLastPosition(xRight, yRight);
+
+        board.setPieceAtLocation(xRight, yRight, position);
+        displayPieces(position);
+
         position.setxCoordinate(xRight + 1);
     }
 

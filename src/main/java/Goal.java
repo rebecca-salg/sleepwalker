@@ -4,7 +4,7 @@ public class Goal extends Piece {
 
     public Goal(int xPosition, int yPosition) {
         super.setxCoordinate(xPosition);
-        super.setCoordinate(yPosition);
+        super.setyCoordinate(yPosition);
         this.goalIcon = 'G';
     }
 
