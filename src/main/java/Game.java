@@ -2,6 +2,8 @@ import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
+import java.io.IOException;
+
 public class Game {
     private Board board;
     private Terminal terminal;
@@ -34,6 +36,20 @@ public class Game {
             case ArrowDown -> movePlayer(KeyType.ArrowDown);
             case ArrowRight -> movePlayer(KeyType.ArrowRight);
             case ArrowLeft -> movePlayer(KeyType.ArrowLeft);
+        }
+    }
+    public void createLevel(){
+        drawShape(3,5,5,1);
+        drawShape(3,21,5,1);
+        drawShape(50,2,1,5);
+        drawShape(50,21,1,5);
+
+    }
+     public void drawShape(int xStart, int yStart, int length, int height) throws Exception {
+        for (int i = yStart - height; i <= yStart; i++) {
+            for (int j = xStart; j <= xStart + length; j++){
+                drawCharacter(new Wall(i,j));
+            }
         }
     }
 }
