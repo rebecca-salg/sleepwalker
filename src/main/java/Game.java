@@ -46,10 +46,10 @@ public class Game {
     public void movePlayer(KeyType keyInput) throws Exception{
         switch (keyInput) {
 
-            case ArrowUp -> movePlayerUp();
-            case ArrowDown -> movePlayerDown();
-            case ArrowRight -> movePlayerRight();
-            case ArrowLeft -> movePlayerLeft();
+            case ArrowUp -> movePlayer(-1,0);
+            case ArrowDown -> movePlayer(1,0);
+            case ArrowRight -> movePlayer(0,1);
+            case ArrowLeft -> movePlayer(0 ,-1);
 
         }
     }
@@ -88,40 +88,40 @@ public class Game {
         }
     }
 
-    private void movePlayerUp() throws Exception {
-        Piece position = board.getPlayer();
-        int xUp = position.getxCoordinate();
-        int yUp = position.getyCoordinate();
-        erasePlayersLastPosition(xUp, yUp);
-        position.setyCoordinate(yUp - 1);
-    }
+    private void movePlayer(int y, int x) throws Exception {
+        Piece player = board.getPlayer();
+        int currentY = player.getyCoordinate();
+        int currentX = player.getxCoordinate();
+        int destY = currentY + y;
+        int destX = currentX + x;
 
-    private void movePlayerDown() throws Exception {
-        Piece position = board.getPlayer();
-        int xDown = position.getxCoordinate();
-        int yDown = position.getyCoordinate();
-        erasePlayersLastPosition(xDown, yDown);
-        position.setyCoordinate(yDown + 1);
-    }
+        Piece destination = board.getPiece(destY, destX);
 
-    private void movePlayerRight() throws Exception {
-        Piece position = board.getPlayer();
-        int xRight = position.getxCoordinate();
-        int yRight = position.getyCoordinate();
-        erasePlayersLastPosition(xRight, yRight);
+        while (destination == null) {
 
-        board.setPieceAtLocation(xRight, yRight, position);
-        displayPieces(position);
+            board.setPieceAtLocation(destX, destY, player);
 
-        position.setxCoordinate(xRight + 1);
-    }
+            erasePlayersLastPosition(currentX, currentY);
 
-    private void movePlayerLeft() throws Exception {
-        Piece position = board.getPlayer();
-        int xLeft = position.getxCoordinate();
-        int yLeft = position.getyCoordinate();
-        erasePlayersLastPosition(xLeft, yLeft);
-        position.setxCoordinate(xLeft - 1);
+            board.setPieceAtLocation(currentX, currentY, null);
+
+            player.setxCoordinate(destX);
+            player.setyCoordinate(destY);
+            displayPieces(player);
+
+            currentX = destX;
+            currentY = destY;
+            destY = destY + y;
+            destX = destX + x;
+
+            destination = board.getPiece(destY, destX);
+            if (y == 0){
+                Thread.sleep(30);
+            }
+            else {
+                Thread.sleep(60);
+            }
+        }
     }
 
     public void erasePlayersLastPosition(int xOld, int yOld) throws Exception {

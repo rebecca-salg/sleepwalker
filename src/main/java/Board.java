@@ -40,4 +40,8 @@ public class Board {
             System.out.println(Arrays.toString(s));
         }
     }
+
+    public Piece getPiece(int y, int x) {
+        return pieces[y][x];
+    }
 }
