@@ -5,17 +5,18 @@ public class Board {
     private Player player;
 
     public Board(int xWidth, int yHeight) {
-        pieces = new Piece[xWidth][yHeight];
+        pieces = new Piece[yHeight][xWidth];
         player = new Player(2, 12);
     }
 
-    public Piece[][] getPieces() {
+    public Piece [][] getPieces() {
         return pieces;
     }
 
-    public void setPieces(Piece[][] pieces) {
-        this.pieces = pieces;
+    public void setPieceAtLocation(int x, int y, Piece piece) {
+        this.pieces[y][x] = piece;
     }
+
 
     public Player getPlayer() {
         return player;
