@@ -3,7 +3,7 @@ public class Wall extends Piece{
 
     public Wall(int xPosition, int yPosition) {
         super.setxCoordinate(xPosition);
-        super.setCoordinate(yPosition);
+        super.setyCoordinate(yPosition);
         this.icon = '█';
     }
 
