@@ -43,5 +43,21 @@ public class Game {
             case ArrowLeft -> movePlayer(KeyType.ArrowLeft);
         }
     }
+    public void createLevel() throws Exception {
+        drawShape(3,5,5,1);
+        drawShape(3,21,5,1);
+        drawShape(50,2,1,5);
+        drawShape(50,21,1,5);
+
+    }
+     public void drawShape(int xStart, int yStart, int length, int height) throws Exception {
+        for (int i = yStart - height; i <= yStart; i++) {
+            for (int j = xStart; j <= xStart + length; j++){
+                Piece wall = new Wall(i,j);
+                board.setPieceAtLocation(j,i, wall);
+                drawCharacter(wall);
+            }
+        }
+    }
 }
 
