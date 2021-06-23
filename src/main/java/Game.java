@@ -27,14 +27,35 @@ public class Game {
         return terminal;
     }
 
-    public void movePlayer (KeyType keyInput) {
+    public void movePlayer(KeyType keyInput) {
         switch (keyInput) {
 
-            case ArrowUp -> movePlayer(KeyType.ArrowUp);
-            case ArrowDown -> movePlayer(KeyType.ArrowDown);
-            case ArrowRight -> movePlayer(KeyType.ArrowRight);
-            case ArrowLeft -> movePlayer(KeyType.ArrowLeft);
+            case ArrowUp -> movePlayerUp();
+            case ArrowDown -> movePlayerDown();
+            case ArrowRight -> movePlayerRight();
+            case ArrowLeft -> movePlayerLeft();
+
+//            case ArrowUp -> movePlayer(KeyType.ArrowUp);
+//            case ArrowDown -> movePlayer(KeyType.ArrowDown);
+//            case ArrowRight -> movePlayer(KeyType.ArrowRight);
+//            case ArrowLeft -> movePlayer(KeyType.ArrowLeft);
         }
+    }
+
+    private void movePlayerUp() {
+        Piece position = board.getPlayer();
+    }
+
+    private void movePlayerDown() {
+            Piece position = board.getPlayer();
+    }
+
+    private void movePlayerRight() {
+            Piece position = board.getPlayer();
+    }
+
+    private void movePlayerLeft() {
+            Piece position = board.getPlayer();
     }
 }
 
