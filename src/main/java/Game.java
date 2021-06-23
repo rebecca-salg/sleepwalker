@@ -122,6 +122,9 @@ public class Game {
                 Thread.sleep(60);
             }
         }
+        if (board.getPiece(destY, destX) instanceof Boundary) {
+            gameOver();
+        }
     }
 
     public void erasePlayersLastPosition(int xOld, int yOld) throws Exception {
