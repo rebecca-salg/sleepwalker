@@ -93,15 +93,32 @@ public class Game {
     }
 
     private void movePlayerRight() throws Exception {
-        Piece position = board.getPlayer();
-        int xRight = position.getxCoordinate();
-        int yRight = position.getyCoordinate();
-        erasePlayersLastPosition(xRight, yRight);
+        Piece player = board.getPlayer();
+        int xRight = player.getxCoordinate();
+        int yRight = player.getyCoordinate();
 
-        board.setPieceAtLocation(xRight, yRight, position);
-        displayPieces(position);
+        int destX = xRight + 1;
 
-        position.setxCoordinate(xRight + 1);
+        //Kolla framåt. Skriv ej över andra objekt. "Krocka"! -Done!
+        Piece destination = board.getPiece(yRight, destX);
+
+        while (destination == null) {
+            //Loopa rörelse
+            board.setPieceAtLocation(destX, yRight, player);
+            erasePlayersLastPosition(xRight, yRight); //Raderar inte sig själv
+
+            board.setPieceAtLocation(xRight, yRight, null);
+
+            player.setxCoordinate(destX);
+            displayPieces(player);
+
+
+            xRight = destX;
+            destX += 1;
+
+            destination = board.getPiece(yRight, destX);
+            Thread.sleep(500);
+        }
     }
 
     private void movePlayerLeft() throws Exception {
