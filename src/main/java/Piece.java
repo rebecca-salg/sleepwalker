@@ -10,11 +10,11 @@ public abstract class Piece {
         this.xCoordinate = xCoordinate;
     }
 
-    public int getCoordinate() {
+    public int getyCoordinate() {
         return yCoordinate;
     }
 
-    public void setCoordinate(int yCoordinate) {
+    public void setyCoordinate(int yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
 
