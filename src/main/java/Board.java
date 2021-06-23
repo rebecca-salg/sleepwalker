@@ -1,19 +1,20 @@
 public class Board {
-    protected String [][] pieces;
+    protected Piece [][] pieces;
     private Player player;
 
     public Board(int xWidth, int yHeight) {
-        pieces = new String[xWidth][yHeight];
+        pieces = new Piece[xWidth][yHeight];
         player = new Player(2, 12);
     }
 
-    public String[][] getPieces() {
+    public Piece [][] getPieces() {
         return pieces;
     }
 
-    public void setPieces(String[][] pieces) {
-        this.pieces = pieces;
+    public void setPieceAtLocation(int x, int y, Piece piece) {
+        this.pieces[x][y] = piece;
     }
+
 
     public Player getPlayer() {
         return player;
