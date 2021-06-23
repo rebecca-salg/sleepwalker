@@ -31,6 +31,7 @@ public class Game {
 
     public void displayPieces(Piece piece) throws IOException {
         terminal.setCursorPosition(piece.getxCoordinate(), piece.getyCoordinate());
+        terminal.setForegroundColor(piece.getTextColor());
         terminal.putCharacter(piece.displayPiece());
         terminal.flush();
     }
@@ -63,7 +64,11 @@ public class Game {
         drawShape(3, 19, 1, 5);
         drawShape(15, 7, 1, 3);
         drawShape(13, 17, 5, 0);
-        drawShape(60, 20, 1, 0); //Goal
+
+        Goal goal = new Goal(60, 20);
+        board.setPieceAtLocation(60, 20, goal);
+        displayPieces(goal);
+        //Goal
     }
 
     public void drawShape(int xStart, int yStart, int length, int height) throws Exception {
