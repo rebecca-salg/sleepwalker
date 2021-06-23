@@ -48,7 +48,9 @@ public class Game {
      public void drawShape(int xStart, int yStart, int length, int height) throws Exception {
         for (int i = yStart - height; i <= yStart; i++) {
             for (int j = xStart; j <= xStart + length; j++){
-                drawCharacter(new Wall(i,j));
+                Piece wall = new Wall(i,j);
+                board.setPieces[i][j] = wall;
+                drawCharacter(wall);
             }
         }
     }
