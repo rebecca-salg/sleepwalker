@@ -9,7 +9,7 @@ public class Game {
     private Terminal terminal;
 
     public Game() throws Exception {
-        this.board = new Board(24, 60);
+        this.board = new Board(60, 24);
         this.terminal = initiateTerminal();
     }
 
@@ -53,9 +53,9 @@ public class Game {
      public void drawShape(int xStart, int yStart, int length, int height) throws Exception {
         for (int i = yStart - height; i <= yStart; i++) {
             for (int j = xStart; j <= xStart + length; j++){
-                Piece wall = new Wall(i,j);
+                Piece wall = new Wall(j,i);
                 board.setPieceAtLocation(j,i, wall);
-                drawCharacter(wall);
+                displayPieces(wall);
             }
         }
     }

@@ -3,7 +3,7 @@ public class Board {
     private Player player;
 
     public Board(int xWidth, int yHeight) {
-        pieces = new Piece[xWidth][yHeight];
+        pieces = new Piece[yHeight][xWidth];
         player = new Player(2, 12);
     }
 
@@ -12,7 +12,7 @@ public class Board {
     }
 
     public void setPieceAtLocation(int x, int y, Piece piece) {
-        this.pieces[x][y] = piece;
+        this.pieces[y][x] = piece;
     }
 
 
