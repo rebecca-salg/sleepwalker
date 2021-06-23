@@ -56,7 +56,7 @@ public class Game {
 
     public void createLevel() throws Exception {
         //drawShape(2, 12, 0, 0); //playerposition
-        drawShape(3, 1, 5, 0);
+        drawShape(3, 2, 5, 0);
         drawShape(3, 7, 1, 5);
         drawShape(45, 8, 9, 0);
         drawShape(50, 7, 1, 5);
@@ -72,9 +72,10 @@ public class Game {
         drawShape(15, 7, 1, 3);
         drawShape(13, 17, 5, 0);
 
-        Goal goal = new Goal(60, 20);
-        board.setPieceAtLocation(60, 20, goal);
+        Goal goal = new Goal(61, 20);
+        board.setPieceAtLocation(61, 20, goal);
         displayPieces(goal);
+        displayPieces(board.getPlayer());
         //Goal
     }
 

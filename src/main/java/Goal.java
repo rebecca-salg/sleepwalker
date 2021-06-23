@@ -9,7 +9,7 @@ public class Goal extends Piece {
         super.setxCoordinate(xPosition);
         super.setyCoordinate(yPosition);
         this.textColor = new TextColor.RGB(0, 200, 0);
-        this.goalIcon = 'G';
+        this.goalIcon = '■';
     }
 
     public TextColor getTextColor() {

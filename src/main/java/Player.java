@@ -13,7 +13,7 @@ public class Player extends Piece{
         super.setxCoordinate(xPosition);
         super.setyCoordinate(yPosition);
         this.textColor = new TextColor.RGB(0, 0, 200);
-        this.playerIcon = 'P';
+        this.playerIcon = '■';
     }
 
     public TextColor getTextColor() {
