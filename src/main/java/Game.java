@@ -1,5 +1,4 @@
 import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -52,7 +51,7 @@ public class Game {
     }
     public void displayPieces(int y, int x, char c) throws IOException {
         terminal.setCursorPosition(x, y);
-        terminal.setForegroundColor(new TextColor.RGB(0,0,0));
+        terminal.setForegroundColor(new TextColor.RGB(0, 0, 0));
         terminal.putCharacter(c);
         terminal.flush();
     }
@@ -88,7 +87,22 @@ public class Game {
 
         Goal goal = new Goal(61, 20);
         board.setPieceAtLocation(61, 20, goal);
+        Elixir elixir1 = new Elixir(24, 19);
+        Elixir elixir2 = new Elixir(72, 15);
+        Elixir elixir3 = new Elixir(76, 10);
+        Elixir elixir4 = new Elixir(3,8);
+//        Elixir elixir5 = new Elixir(30, 7);
         displayPieces(goal);
+        board.setPieceAtLocation(24,19, elixir1);
+        board.setPieceAtLocation(72,15, elixir2);
+        board.setPieceAtLocation(76,10, elixir3);
+        board.setPieceAtLocation(3,8, elixir4);
+//        board.setPieceAtLocation(30,7, elixir5);
+        displayPieces(elixir1);
+        displayPieces(elixir2);
+        displayPieces(elixir3);
+        displayPieces(elixir4);
+//        displayPieces(elixir5);
         displayPieces(board.getPlayer());
         //Goal
         displayLife();
@@ -143,6 +157,13 @@ public class Game {
             winMethod();
         }
 
+        if (board.getPiece(destY, destX) instanceof Elixir) {
+            board.setPieceAtLocation(destX, destY, null);
+            score.removeSteps();
+            displayScore();
+            movePlayer(y,x);
+        }
+
         if (board.getPiece(destY, destX) instanceof Boundary) {
             life.decreaseLife();
             displayLife();
@@ -188,12 +209,13 @@ public class Game {
             terminal.putCharacter(c);
         }*/
     }
-    public void displayLife() throws Exception{
-        for ( int i = 0; i < 5; i ++) {
-            if( i < life.getLifeCount()) {
-                displayPieces(life.getyCoordinate(),life.getxCoordinate()+i, life);
+
+    public void displayLife() throws Exception {
+        for (int i = 0; i < 5; i++) {
+            if (i < life.getLifeCount()) {
+                displayPieces(life.getyCoordinate(), life.getxCoordinate() + i, life);
             } else {
-                displayPieces(life.getyCoordinate(),life.getxCoordinate()+i, ' ');
+                displayPieces(life.getyCoordinate(), life.getxCoordinate() + i, ' ');
             }
         }
     }

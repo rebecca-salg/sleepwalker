@@ -16,4 +16,8 @@ public class Score {
     public int addOnePoint(){
         return this.score++;
     }
+
+    public void removeSteps() {
+        this.score = score - 5;
+    }
 }
