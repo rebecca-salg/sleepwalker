@@ -8,7 +8,7 @@ public class Goal extends Piece {
     public Goal(int xPosition, int yPosition) {
         super.setxCoordinate(xPosition);
         super.setyCoordinate(yPosition);
-        this.textColor = new TextColor.RGB(0, 200, 0);
+        this.textColor = new TextColor.RGB(32,178,170);
         this.goalIcon = '⚑';
     }
 

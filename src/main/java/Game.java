@@ -31,6 +31,7 @@ public class Game {
     public Terminal initiateTerminal() throws Exception {
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         Terminal terminal = terminalFactory.createTerminal();
+        terminal.setBackgroundColor(new TextColor.RGB(226,240,217));
         terminal.setCursorVisible(false);
         return terminal;
     }
@@ -163,13 +164,13 @@ public class Game {
 
     public void erasePlayersLastPosition(int xOld, int yOld) throws Exception {
         terminal.setCursorPosition(xOld, yOld);
-        terminal.setForegroundColor(new TextColor.RGB(100,100,100));
+        terminal.setForegroundColor(new TextColor.RGB(143,188,143));
         terminal.putCharacter('⠔');
     }
 
     public void displayScore() throws IOException {
-        terminal.setCursorPosition(1,1);
-        terminal.setForegroundColor(new TextColor.RGB(255,255,0));
+        terminal.setCursorPosition(66,1);
+        terminal.setForegroundColor(new TextColor.RGB(0,0,0));
         String string = "Moves: " + score.getScore();
         for (char c : string.toCharArray()) {
             terminal.putCharacter(c);
@@ -205,14 +206,37 @@ public class Game {
         }
     }
 
+    public void clearBoard() throws IOException {
+        for (int i = 0; i < board.getPieces().length; i++) {
+            for (int j = 0; j <board.getPieces()[i].length; j++) {
+                displayPieces(i, j, ' ');
+            }
+        }
+    }
     public void welcomeScreen() throws Exception {
-        writeString(12, 30, "Welcome to Sleepwalker!");
-
+        clearBoard();
+        String[] welcomeMessages = {"Welcome to Sleepwalker!","You have walked in your sleep again and ended up far from home", "and the exam is tomorrow! To save energy you try to Sleepwalk and","can only change direction when you hit the side of a house, fence", "or hedge.", "Try to find your way back with as few moves as possible. Your exam", "results depend on this!", "<Press any key to continue>","Made by Shler Moulodi, Robert Heiersson, Johan Lilja and Rebecca Sälg. ", "AW Academy 2021 "};
+        int stringCount = 0;
+        terminal.setForegroundColor(new TextColor.RGB(0,0,0));
+        writeString( 4, 15, welcomeMessages[stringCount++]);
+        writeString( 7, 6, welcomeMessages[stringCount++]);
+        writeString( 8, 6, welcomeMessages[stringCount++]);
+        writeString( 9, 6, welcomeMessages[stringCount++]);
+        writeString( 10, 6, welcomeMessages[stringCount++]);
+        writeString( 12, 6, welcomeMessages[stringCount++]);
+        writeString( 13, 6, welcomeMessages[stringCount++]);
+        writeString( 17, 12, welcomeMessages[stringCount++]);
+        writeString( 21, 6, welcomeMessages[stringCount++]);
+        writeString( 22, 15, welcomeMessages[stringCount++]);
         KeyStroke keyStroke;
         do {
-            Thread.sleep(200);
+            Thread.sleep(500);
+            writeString( 17, 12, welcomeMessages[7]);
+            Thread.sleep(500);
+            writeString( 17, 12, "                                    ");
             keyStroke = terminal.pollInput();
         } while (keyStroke == null);
+        clearBoard();
     }
 
     public void writeString(int y, int x, String s) throws IOException {
@@ -220,6 +244,7 @@ public class Game {
         for (char c : s.toCharArray()) {
             terminal.putCharacter(c);
         }
+        terminal.flush();
     }
 }
 

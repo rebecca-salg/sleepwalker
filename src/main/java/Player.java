@@ -12,7 +12,7 @@ public class Player extends Piece{
     public Player(int xPosition, int yPosition) {
         super.setxCoordinate(xPosition);
         super.setyCoordinate(yPosition);
-        this.textColor = new TextColor.RGB(255, 255, 255);
+        this.textColor = new TextColor.RGB(0, 0, 0);
         this.playerIcon = '⚫';
     }
 
