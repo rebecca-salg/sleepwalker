@@ -93,13 +93,19 @@ public class Game {
         Elixir elixir1 = new Elixir(24, 19);
         Elixir elixir2 = new Elixir(72, 15);
         Elixir elixir3 = new Elixir(76, 10);
+        Elixir elixir4 = new Elixir(3,8);
+//        Elixir elixir5 = new Elixir(30, 7);
         displayPieces(goal);
         board.setPieceAtLocation(24,19, elixir1);
-        board.setPieceAtLocation(24,19, elixir2);
-        board.setPieceAtLocation(24,19, elixir3);
+        board.setPieceAtLocation(72,15, elixir2);
+        board.setPieceAtLocation(76,10, elixir3);
+        board.setPieceAtLocation(3,8, elixir4);
+//        board.setPieceAtLocation(30,7, elixir5);
         displayPieces(elixir1);
         displayPieces(elixir2);
         displayPieces(elixir3);
+        displayPieces(elixir4);
+//        displayPieces(elixir5);
         displayPieces(board.getPlayer());
         //Goal
         displayLife();
@@ -125,7 +131,7 @@ public class Game {
 
         Piece destination = board.getPiece(destY, destX);
 
-        while (destination == null || destination instanceof Elixir) {
+        while (destination == null) {
 
             board.setPieceAtLocation(destX, destY, player);
 
@@ -154,8 +160,10 @@ public class Game {
         }
 
         if (board.getPiece(destY, destX) instanceof Elixir) {
-            getScore().removeSteps();
-//            score.removeSteps();
+            board.setPieceAtLocation(destX, destY, null);
+            score.removeSteps();
+            displayScore();
+            movePlayer(y,x);
         }
 
         if (board.getPiece(destY, destX) instanceof Boundary) {

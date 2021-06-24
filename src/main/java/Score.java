@@ -17,9 +17,7 @@ public class Score {
         return this.score++;
     }
 
-    public int removeSteps() {
-        this.score = score - 3;
-        return this.score;
-
+    public void removeSteps() {
+        this.score = score - 5;
     }
 }
