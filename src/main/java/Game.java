@@ -1,4 +1,5 @@
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -30,25 +31,29 @@ public class Game {
     public Terminal initiateTerminal() throws Exception {
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         Terminal terminal = terminalFactory.createTerminal();
-        terminal.setBackgroundColor(new TextColor.RGB(226,240,217));
+        terminal.setBackgroundColor(new TextColor.RGB(226, 240, 217));
         terminal.setCursorVisible(false);
         return terminal;
     }
+
     public Score getScore() {
         return score;
     }
+
     public void displayPieces(Piece piece) throws IOException {
         terminal.setCursorPosition(piece.getxCoordinate(), piece.getyCoordinate());
         terminal.setForegroundColor(piece.getTextColor());
         terminal.putCharacter(piece.displayPiece());
         terminal.flush();
     }
+
     public void displayPieces(int y, int x, Piece piece) throws IOException {
         terminal.setCursorPosition(x, y);
         terminal.setForegroundColor(piece.getTextColor());
         terminal.putCharacter(piece.displayPiece());
         terminal.flush();
     }
+
     public void displayPieces(int y, int x, char c) throws IOException {
         terminal.setCursorPosition(x, y);
         terminal.setForegroundColor(new TextColor.RGB(0, 0, 0));
@@ -90,13 +95,13 @@ public class Game {
         Elixir elixir1 = new Elixir(24, 19);
         Elixir elixir2 = new Elixir(72, 15);
         Elixir elixir3 = new Elixir(76, 10);
-        Elixir elixir4 = new Elixir(3,8);
+        Elixir elixir4 = new Elixir(3, 8);
 //        Elixir elixir5 = new Elixir(30, 7);
         displayPieces(goal);
-        board.setPieceAtLocation(24,19, elixir1);
-        board.setPieceAtLocation(72,15, elixir2);
-        board.setPieceAtLocation(76,10, elixir3);
-        board.setPieceAtLocation(3,8, elixir4);
+        board.setPieceAtLocation(24, 19, elixir1);
+        board.setPieceAtLocation(72, 15, elixir2);
+        board.setPieceAtLocation(76, 10, elixir3);
+        board.setPieceAtLocation(3, 8, elixir4);
 //        board.setPieceAtLocation(30,7, elixir5);
         displayPieces(elixir1);
         displayPieces(elixir2);
@@ -146,10 +151,9 @@ public class Game {
             destX += x;
 
             destination = board.getPiece(destY, destX);
-            if (y == 0){
+            if (y == 0) {
                 Thread.sleep(30);
-            }
-            else {
+            } else {
                 Thread.sleep(60);
             }
         }
@@ -161,7 +165,7 @@ public class Game {
             board.setPieceAtLocation(destX, destY, null);
             score.removeSteps();
             displayScore();
-            movePlayer(y,x);
+            movePlayer(y, x);
         }
 
         if (board.getPiece(destY, destX) instanceof Boundary) {
@@ -174,25 +178,25 @@ public class Game {
             board.setPieceAtLocation(currentX, currentY, null);
 
             //update player info
-            player.setxCoordinate(2);
+            player.setxCoordinate(3);
             player.setyCoordinate(12);
 
             //set player in the array and display on terminal
-            board.setPieceAtLocation(2, 12, player);
+            board.setPieceAtLocation(3, 12, player);
             displayPieces(player);
         }
     }
 
     public void erasePlayersLastPosition(int xOld, int yOld) throws Exception {
         terminal.setCursorPosition(xOld, yOld);
-        terminal.setForegroundColor(new TextColor.RGB(143,188,143));
+        terminal.setForegroundColor(new TextColor.RGB(143, 188, 143));
         terminal.putCharacter('⠔');
     }
 
     public void displayScore() throws IOException {
-        terminal.setCursorPosition(66,1);
-        terminal.setForegroundColor(new TextColor.RGB(0,0,0));
-        String string = "Moves: " + score.getScore();
+        terminal.setCursorPosition(66, 1);
+        terminal.setForegroundColor(new TextColor.RGB(0, 0, 0));
+        String string = "Moves: " + score.getScore() + "  ";
         for (char c : string.toCharArray()) {
             terminal.putCharacter(c);
         }
@@ -230,32 +234,33 @@ public class Game {
 
     public void clearBoard() throws IOException {
         for (int i = 0; i < board.getPieces().length; i++) {
-            for (int j = 0; j <board.getPieces()[i].length; j++) {
+            for (int j = 0; j < board.getPieces()[i].length; j++) {
                 displayPieces(i, j, ' ');
             }
         }
     }
+
     public void welcomeScreen() throws Exception {
         clearBoard();
-        String[] welcomeMessages = {"Welcome to Sleepwalker!","You have walked in your sleep again and ended up far from home", "and the exam is tomorrow! To save energy you try to Sleepwalk and","can only change direction when you hit the side of a house, fence", "or hedge.", "Try to find your way back with as few moves as possible. Your exam", "results depend on this!", "<Press any key to continue>","Made by Shler Moulodi, Robert Heiersson, Johan Lilja and Rebecca Sälg. ", "AW Academy 2021 "};
+        String[] welcomeMessages = {"Welcome to Sleepwalker!", "You have walked in your sleep again and ended up far from home", "and the exam is tomorrow! To save energy you try to Sleepwalk and", "can only change direction when you hit the side of a house, fence", "or hedge.", "Try to find your way back with as few moves as possible. Your exam", "results depend on this!", "<Press any key to continue>", "Made by Shler Moulodi, Robert Heierson, Johan Lilja and Rebecca Sälg. ", "AW Academy 2021 "};
         int stringCount = 0;
-        terminal.setForegroundColor(new TextColor.RGB(0,0,0));
-        writeString( 4, 15, welcomeMessages[stringCount++]);
-        writeString( 7, 6, welcomeMessages[stringCount++]);
-        writeString( 8, 6, welcomeMessages[stringCount++]);
-        writeString( 9, 6, welcomeMessages[stringCount++]);
-        writeString( 10, 6, welcomeMessages[stringCount++]);
-        writeString( 12, 6, welcomeMessages[stringCount++]);
-        writeString( 13, 6, welcomeMessages[stringCount++]);
-        writeString( 17, 12, welcomeMessages[stringCount++]);
-        writeString( 21, 6, welcomeMessages[stringCount++]);
-        writeString( 22, 15, welcomeMessages[stringCount++]);
+        terminal.setForegroundColor(new TextColor.RGB(0, 0, 0));
+        writeString(4, 15, welcomeMessages[stringCount++]);
+        writeString(7, 6, welcomeMessages[stringCount++]);
+        writeString(8, 6, welcomeMessages[stringCount++]);
+        writeString(9, 6, welcomeMessages[stringCount++]);
+        writeString(10, 6, welcomeMessages[stringCount++]);
+        writeString(12, 6, welcomeMessages[stringCount++]);
+        writeString(13, 6, welcomeMessages[stringCount++]);
+        writeString(17, 12, welcomeMessages[stringCount++]);
+        writeString(21, 6, welcomeMessages[stringCount++]);
+        writeString(22, 15, welcomeMessages[stringCount++]);
         KeyStroke keyStroke;
         do {
             Thread.sleep(500);
-            writeString( 17, 12, welcomeMessages[7]);
+            writeString(17, 12, welcomeMessages[7]);
             Thread.sleep(500);
-            writeString( 17, 12, "                                    ");
+            writeString(17, 12, "                                    ");
             keyStroke = terminal.pollInput();
         } while (keyStroke == null);
         clearBoard();
