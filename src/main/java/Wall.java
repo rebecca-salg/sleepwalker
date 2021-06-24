@@ -7,7 +7,7 @@ public class Wall extends Piece{
     public Wall(int xPosition, int yPosition) {
         super.setxCoordinate(xPosition);
         super.setyCoordinate(yPosition);
-        this.textColor = new TextColor.RGB(200, 0, 0);
+        this.textColor = new TextColor.RGB(165,42,42);
         this.icon = '█';
     }
 
