@@ -10,7 +10,6 @@ public class Game {
     private Terminal terminal;
 
 
-
     private Score score;
 
     public Game() throws Exception {
@@ -33,9 +32,11 @@ public class Game {
         terminal.setCursorVisible(false);
         return terminal;
     }
+
     public Score getScore() {
         return score;
     }
+
     public void displayPieces(Piece piece) throws IOException {
         terminal.setCursorPosition(piece.getxCoordinate(), piece.getyCoordinate());
         terminal.setForegroundColor(piece.getTextColor());
@@ -43,13 +44,13 @@ public class Game {
         terminal.flush();
     }
 
-    public void movePlayer(KeyType keyInput) throws Exception{
+    public void movePlayer(KeyType keyInput) throws Exception {
         switch (keyInput) {
 
-            case ArrowUp -> movePlayer(-1,0);
-            case ArrowDown -> movePlayer(1,0);
-            case ArrowRight -> movePlayer(0,1);
-            case ArrowLeft -> movePlayer(0 ,-1);
+            case ArrowUp -> movePlayer(-1, 0);
+            case ArrowDown -> movePlayer(1, 0);
+            case ArrowRight -> movePlayer(0, 1);
+            case ArrowLeft -> movePlayer(0, -1);
 
         }
     }
@@ -100,6 +101,7 @@ public class Game {
 
         while (destination == null) {
 
+
             board.setPieceAtLocation(destX, destY, player);
 
             erasePlayersLastPosition(currentX, currentY);
@@ -116,13 +118,16 @@ public class Game {
             destX = destX + x;
 
             destination = board.getPiece(destY, destX);
-            if (y == 0){
+            if (y == 0) {
                 Thread.sleep(30);
-            }
-            else {
+            } else {
                 Thread.sleep(60);
             }
         }
+        if (board.getPiece(destY, destX) instanceof Goal) {
+            winMethod();
+        }
+
         if (board.getPiece(destY, destX) instanceof Boundary) {
             gameOver();
         }
@@ -134,7 +139,7 @@ public class Game {
     }
 
     public void displayScore() throws IOException {
-        terminal.setCursorPosition(1,1);
+        terminal.setCursorPosition(1, 1);
         String string = "Score: " + score.getScore();
         for (char c : string.toCharArray()) {
             terminal.putCharacter(c);
@@ -143,9 +148,17 @@ public class Game {
     }
 
     public void gameOver() throws IOException {
-        terminal.setCursorPosition(12,30);
+        terminal.setCursorPosition(12, 30);
         String gameOver = "GAME OVER :(";
         for (char c : gameOver.toCharArray()) {
+            terminal.putCharacter(c);
+        }
+    }
+
+    public void winMethod() throws IOException {
+        terminal.setCursorPosition(12, 30);
+        String winMessage = "Woohoo! You made it to the exam!";
+        for (char c : winMessage.toCharArray()) {
             terminal.putCharacter(c);
         }
     }
