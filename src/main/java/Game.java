@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
