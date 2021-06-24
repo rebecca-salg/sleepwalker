@@ -6,7 +6,7 @@ public class Board {
 
     public Board(int xWidth, int yHeight) {
         pieces = new Piece[yHeight][xWidth];
-        player = new Player(2, 12);
+        player = new Player(3, 12);
     }
 
     public Piece [][] getPieces() {
