@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -8,15 +9,14 @@ import java.util.concurrent.ExecutionException;
 public class Game {
     private Board board;
     private Terminal terminal;
-
-
-
+    private Life life;
     private Score score;
 
     public Game() throws Exception {
-        this.board = new Board(80, 24);
+        this.board = new Board(81, 25);
         this.terminal = initiateTerminal();
         this.score = new Score();
+        this.life = new Life(1, 60);
     }
 
     public Terminal getTerminal() {
@@ -40,6 +40,18 @@ public class Game {
         terminal.setCursorPosition(piece.getxCoordinate(), piece.getyCoordinate());
         terminal.setForegroundColor(piece.getTextColor());
         terminal.putCharacter(piece.displayPiece());
+        terminal.flush();
+    }
+    public void displayPieces(int y, int x, Piece piece) throws IOException {
+        terminal.setCursorPosition(x, y);
+        terminal.setForegroundColor(piece.getTextColor());
+        terminal.putCharacter(piece.displayPiece());
+        terminal.flush();
+    }
+    public void displayPieces(int y, int x, char c) throws IOException {
+        terminal.setCursorPosition(x, y);
+        terminal.setForegroundColor(new TextColor.RGB(0,0,0));
+        terminal.putCharacter(c);
         terminal.flush();
     }
 
@@ -77,7 +89,11 @@ public class Game {
         displayPieces(goal);
         displayPieces(board.getPlayer());
         //Goal
+        displayLife();
+        displayScore();
     }
+
+
 
     public void drawShape(int xStart, int yStart, int length, int height) throws Exception {
         for (int i = yStart - height; i <= yStart; i++) {
@@ -101,9 +117,7 @@ public class Game {
         while (destination == null) {
 
             board.setPieceAtLocation(destX, destY, player);
-
             erasePlayersLastPosition(currentX, currentY);
-
             board.setPieceAtLocation(currentX, currentY, null);
 
             player.setxCoordinate(destX);
@@ -112,8 +126,8 @@ public class Game {
 
             currentX = destX;
             currentY = destY;
-            destY = destY + y;
-            destX = destX + x;
+            destY += y;
+            destX += x;
 
             destination = board.getPiece(destY, destX);
             if (y == 0){
@@ -124,7 +138,9 @@ public class Game {
             }
         }
         if (board.getPiece(destY, destX) instanceof Boundary) {
-            gameOver();
+            life.decreaseLife();
+            displayLife();
+            if (!life.isAlive()) gameOver();
         }
     }
 
@@ -135,18 +151,31 @@ public class Game {
 
     public void displayScore() throws IOException {
         terminal.setCursorPosition(1,1);
-        String string = "Score: " + score.getScore();
+        terminal.setForegroundColor(new TextColor.RGB(255,255,0));
+        String string = "Moves: " + score.getScore();
         for (char c : string.toCharArray()) {
             terminal.putCharacter(c);
         }
-
+        terminal.flush();
     }
 
     public void gameOver() throws IOException {
-        terminal.setCursorPosition(12,30);
+        terminal.close();
+        System.exit(-1);
+
+        /*terminal.setCursorPosition(12,30);
         String gameOver = "GAME OVER :(";
         for (char c : gameOver.toCharArray()) {
             terminal.putCharacter(c);
+        }*/
+    }
+    public void displayLife() throws Exception{
+        for ( int i = 0; i < 5; i ++) {
+            if( i < life.getLifeCount()) {
+                displayPieces(life.getyCoordinate(),life.getxCoordinate()+i, life);
+            } else {
+                displayPieces(life.getyCoordinate(),life.getxCoordinate()+i, ' ');
+            }
         }
     }
 }
