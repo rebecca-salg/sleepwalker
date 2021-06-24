@@ -1,4 +1,5 @@
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -200,6 +201,23 @@ public class Game {
         terminal.setCursorPosition(12, 30);
         String winMessage = "Woohoo! You made it to the exam!";
         for (char c : winMessage.toCharArray()) {
+            terminal.putCharacter(c);
+        }
+    }
+
+    public void welcomeScreen() throws Exception {
+        writeString(12, 30, "Welcome to Sleepwalker!");
+
+        KeyStroke keyStroke;
+        do {
+            Thread.sleep(200);
+            keyStroke = terminal.pollInput();
+        } while (keyStroke == null);
+    }
+
+    public void writeString(int y, int x, String s) throws IOException {
+        terminal.setCursorPosition(x, y);
+        for (char c : s.toCharArray()) {
             terminal.putCharacter(c);
         }
     }
