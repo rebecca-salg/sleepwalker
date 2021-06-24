@@ -141,12 +141,25 @@ public class Game {
             life.decreaseLife();
             displayLife();
             if (!life.isAlive()) gameOver();
+
+            //remove icon and object from current location
+            erasePlayersLastPosition(currentX, currentY);
+            board.setPieceAtLocation(currentX, currentY, null);
+
+            //update player info
+            player.setxCoordinate(2);
+            player.setyCoordinate(12);
+
+            //set player in the array and display on terminal
+            board.setPieceAtLocation(2, 12, player);
+            displayPieces(player);
         }
     }
 
     public void erasePlayersLastPosition(int xOld, int yOld) throws Exception {
         terminal.setCursorPosition(xOld, yOld);
-        terminal.putCharacter(' ');
+        terminal.setForegroundColor(new TextColor.RGB(100,100,100));
+        terminal.putCharacter('⠔');
     }
 
     public void displayScore() throws IOException {
